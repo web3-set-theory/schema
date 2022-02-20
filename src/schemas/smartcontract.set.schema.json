@@ -1,0 +1,423 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "$id":"https://github.com/metameta-protocol/metametasets-schema/src/set.smartcontract.schema.json",
+   "title":"Smart Contract Set Schema",
+   "description":"A smart contract set schema for usage in Web3 Set Theory",
+   "type":"object",
+   "additionalProperties":true,
+   "required":[
+       "id",
+       "name",
+       "object",
+       "timestamp",
+       "version",
+       "entities",
+       "conditions",
+       "rules"
+   ],
+   "properties":{
+       "id":{
+         "$ref":"#/definitions/IdentifierDefinition"
+       },
+       "name":{
+           "$ref":"#/definitions/NameDefinition"
+       },
+       "object":{
+           "$ref":"#/definitions/ObjectDefinition"
+       },
+       "timestamp":{
+           "type":"string",
+           "format":"date-time",
+           "description":"The timestamp of when the set was created"
+       },
+       "version":{
+           "$ref":"#/definitions/Version"
+       },
+       "entities":{
+           "type":"array",
+           "description":"The list of entities included in the set.",
+           "items":{
+               "$ref":"#/definitions/EntityDefinition"
+           },
+           "minItems":1,
+           "maxItems":10000
+       },
+       "conditions":{
+           "type":"array",
+           "description":"Conditions that apply to the set entities.",
+           "items":{
+               "$ref":"#/definitions/ConditionDefinition"
+           },
+           "minItems":0,
+           "maxItems":10000
+       },
+       "rules":{
+           "type":"array",
+           "description":"Rules that apply to the set conditions.",
+           "items":{
+               "$ref":"#/definitions/RuleDefinition"
+           },
+           "minItems":0,
+           "maxItems":10000
+       },
+       "keywords":{
+           "type":"array",
+           "description":"Keywords associated with the contents of the list; may be used in list discoverability",
+           "items":{
+               "type":"string",
+               "description":"A keyword to describe the contents of the list",
+               "minLength":1,
+               "maxLength":20,
+               "pattern":"^[\\w ]+$",
+               "examples":[
+                   "defi",
+                   "swap",
+                   "deposit"
+               ]
+           },
+           "maxItems":20,
+           "uniqueItems":true
+       },
+       "tags":{
+           "type":"object",
+           "description":"A mapping of tag identifiers to their name and description",
+           "propertyNames":{
+               "$ref":"#/definitions/TagIdentifier"
+           },
+           "additionalProperties":{
+               "$ref":"#/definitions/TagDefinition"
+           },
+           "maxProperties":20,
+           "examples":[
+               {
+                   "savings":{
+                       "name":"Savings",
+                       "description":"Smart contract with savings features"
+                   }
+               }
+           ]
+       },
+       "contentUri":{
+           "type":"string",
+           "description":"A URI to a valid metameta content object",
+           "format":"uri",
+           "examples":[
+               "ipfs://"
+           ]
+       }
+   },
+   "definitions":{
+       "IdentifierDefinition":{
+           "type":"string",
+           "description":"Identifier (Generic)",
+           "minLength":1,
+           "maxLength":256,
+           "pattern": "^[ \\w\\.,:]+$",
+           "examples":[
+               "contract.uniswap.v3.swapRouter"
+           ]
+       },
+       "ObjectDefinition":{
+           "type":"string",
+           "description":"Object type identifier",
+           "minLength":1,
+           "maxLength":256,
+           "pattern":"^[ \\w\\.,:]+$",
+           "examples":[
+               "set.meta",
+               "condition.smartcontract",
+               "rule.did"
+           ]
+       },
+       "NameDefinition":{
+           "type":"string",
+           "description":"Name (Generic)",
+           "minLength":1,
+           "maxLength":256,
+           "examples":[
+               "Uniswap.exactInputSingle: Swap for 100 USDC (Minimum)"
+           ]
+       },
+       "EntityDefinition":{
+           "type":"object",
+           "description":"A list of smart contract entities contained in the set",
+           "additionalProperties":false,
+           "properties":{
+               "id":{
+                   "$ref":"#/definitions/IdentifierDefinition"
+               },
+               "object":{
+                   "$ref":"#/definitions/ObjectDefinition"
+               },
+               "name":{
+                   "$ref":"#/definitions/NameDefinition"
+               },
+               "chainId":{
+                   "type":"integer",
+                   "description":"The chain ID of the EVM network",
+                   "minimum":1,
+                   "examples":[
+                       1,
+                       42
+                   ]
+               },
+               "address":{
+                   "type":"string",
+                   "description":"The checksummed address of the smart contract on the specified chain ID",
+                   "pattern":"^0x[a-fA-F0-9]{40}$",
+                   "examples":[
+                       "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                   ]
+               },
+               "abiUri":{
+                   "type":"string",
+                   "description":"A URI pointing to a valid ABI (application binary interface) for the address",
+                   "format":"uri",
+                   "examples":[
+                       "ipfs://QmXfzKRvjZz3u5JRgC4v5mGVbm9ahrUiB4DgzHBsnWbTMM"
+                   ]
+               }
+           },
+           "required":[
+               "id",
+               "name",
+               "chainId",
+               "address",
+               "abiUri"
+           ]
+       },
+       "ConditionOperationDefinition":{
+           "type":"object",
+           "description":"Definition of a tag that can be associated with a token via its identifier",
+           "additionalProperties":false,
+           "required":[
+               "index",
+               "type",
+               "operator",
+               "value"
+           ],
+           "properties":{
+               "index":{
+                   "type":"string",
+                   "description":"Index position of the argument in the function/event",
+                   "minLength":1,
+                   "maxLength":20,
+                   "examples":[
+                       "0",
+                       "[1]",
+                       "[0][1]"
+                   ]
+               },
+               "type":{
+                   "type":"string",
+                   "description":"The type of the argument (e.g. address, uint256, bytes32, bytes etc.)",
+                   "minLength":1,
+                   "maxLength":256
+               },
+               "operator":{
+                   "type":"string",
+                   "description":"The operator to apply to the value in the index position",
+                   "minLength":1,
+                   "maxLength":256
+               },
+               "value":{
+                   "type":"string",
+                   "description":"Operator value to compare against the value in the index position",
+                   "minLength":1,
+                   "maxLength":256
+               }
+           }
+       },
+       "ConditionDefinition":{
+           "type":"object",
+           "description":"A list of smart contract entities contained in the set",
+           "additionalProperties":false,
+           "required":[
+               "id",
+               "name",
+               "entityId",
+               "type",
+               "typeSignature",
+               "operations"
+           ],
+           "properties":{
+               "id":{
+                   "$ref":"#/definitions/IdentifierDefinition"
+               },
+               "name":{
+                   "$ref":"#/definitions/NameDefinition"
+               },
+               "object":{
+                   "$ref":"#/definitions/ObjectDefinition"
+               },
+               "entityId":{
+                   "$ref":"#/definitions/IdentifierDefinition"
+               },
+               "type":{
+                   "type":"string",
+                   "description":"Smart contract set condition type",
+                   "minLength":1,
+                   "maxLength":64,
+                   "examples":[
+                       "function",
+                       "event"
+                   ]
+               },
+               "typeSignature":{
+                   "type":"string",
+                   "description":"Smart contract set condition type signature (e.g. function(address,uint256), Event(address,uint256,uint256))",
+                   "minLength":1,
+                   "maxLength":512,
+                   "examples":[
+                       "deposit",
+                       "deposit(address, uint256)",
+                       "transferFrom",
+                       "transferFrom(address, address, uint256)"
+                   ]
+               },
+               "operations":{
+                   "type":"array",
+                   "description":"Condition operations that are applied to the target entityId",
+                   "items":{
+                       "$ref":"#/definitions/ConditionOperationDefinition"
+                   }
+               }
+           }
+       },
+   "RuleDefinition":{
+       "type":"object",
+       "description":"A list of smart contract entities contained in the set",
+       "additionalProperties":false,
+       "required":[
+           "id",
+           "conditionIds",
+           "validation"
+       ],
+       "properties":{
+           "id":{
+               "$ref":"#/definitions/IdentifierDefinition"
+           },
+           "name":{
+               "$ref":"#/definitions/NameDefinition"
+           },
+           "object":{
+               "$ref":"#/definitions/ObjectDefinition"
+           },
+           "conditionIds":{
+               "type":"array",
+               "description":"List of condition ids to apply to the rule",
+               "items":{
+                   "$ref":"#/definitions/IdentifierDefinition"
+               },
+               "maxItems":256,
+               "uniqueItems":true
+           },
+           "validation":{
+               "type":"array",
+               "description":"Methods to validate target conditions.",
+               "items":{
+                   "type":"string",
+                   "description":"Rule validation method",
+                   "minLength":1,
+                   "maxLength":128,
+                   "examples":[
+                       [
+                           "complete"
+                       ]
+                   ]
+               },
+               "maxItems":256,
+               "uniqueItems":true
+           }
+       }
+   },
+   "TagIdentifier": {
+      "type": "string",
+      "description": "The unique identifier of a tag",
+      "minLength": 1,
+      "maxLength": 10,
+      "pattern": "^[\\w]+$",
+      "examples": [
+        "compound",
+        "stablecoin"
+      ]
+    },
+   "TagDefinition":{
+       "type":"object",
+       "description":"Definition of a tag that can be associated with a token via its identifier",
+       "additionalProperties":false,
+       "properties":{
+           "name":{
+               "type":"string",
+               "description":"The name of the tag",
+               "pattern":"^[ \\w]+$",
+               "minLength":1,
+               "maxLength":20
+           },
+           "description":{
+               "type":"string",
+               "description":"A user-friendly description of the tag",
+               "pattern":"^[ \\w\\.,:]+$",
+               "minLength":1,
+               "maxLength":200
+           }
+       },
+       "required":[
+           "name",
+           "description"
+       ],
+       "examples":[
+           {
+               "name":"Stablecoin",
+               "description":"A token with value pegged to another asset"
+           }
+       ]
+   },
+   "Version":{
+       "type":"object",
+       "description":"The version of the set, used in change detection",
+       "examples":[
+           {
+               "major":1,
+               "minor":0,
+               "patch":0
+           }
+       ],
+       "additionalProperties":false,
+       "properties":{
+           "major":{
+               "type":"integer",
+               "description":"The major version of the list. Must be incremented when smart contract are removed from the list or smart contract addresses are changed.",
+               "minimum":0,
+               "examples":[
+                   1,
+                   2
+               ]
+           },
+           "minor":{
+               "type":"integer",
+               "description":"The minor version of the list. Must be incremented when smart contracts are added to the set.",
+               "minimum":0,
+               "examples":[
+                   0,
+                   1
+               ]
+           },
+           "patch":{
+               "type":"integer",
+               "description":"The patch version of the list. Must be incremented for any changes to the list.",
+               "minimum":0,
+               "examples":[
+                   0,
+                   1
+               ]
+           }
+       },
+       "required":[
+           "major",
+           "minor",
+           "patch"
+       ]
+   }
+}
+}

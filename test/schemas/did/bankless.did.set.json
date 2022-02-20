@@ -1,0 +1,49 @@
+{
+  "id": "set.did.bankless.defikickstart.v.0.1.0",
+  "name": "Bankless Defi Kickstart (Q1 2022)",
+  "type": "metametameta.v1.set.did",
+  "version": {
+    "major": 0,
+    "minor": 1,
+    "patch": 0
+  },
+  "timestamp": "2018-11-13T20:20:39+00:00",
+  "keywords": ["defi", "bankless"],
+  "entities": [
+    {
+      "id": "did.bankless.certificateIssuer",
+      "name": "Bankless Certificate Authority",
+      "type": "metameta.v1.did.set.entity",
+      "did": "did:meta:bankless.org",
+      "description": "The registered Decentralized Identifier of the Bankless Certificate Authority"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "did.bankless.certificateIssuer.defiKickstartCertificate",
+      "type": "metameta.v1.did.set.condition",
+      "target": "did.bankless.certificateIssuer",
+      "action":  {
+          "type": "attestation",
+          "schema": "did:meta:bankless.org/certificate/core.schema.json"
+      },
+      "arguments": [
+        {
+          "accesor": "issuedAt",
+          "condition": "range",
+          "value": ["1638316800", "1640908800"]
+        }
+      ]
+    }
+  ],
+  "rules": [
+      {
+          "name": "did.bankless.certificateIssuer.timeRange",
+          "type": "metameta.v1.did.set.rule",
+          "condition": "required",
+          "targets": [
+              "did.bankless.certificateIssuer"
+          ]
+      }
+  ]
+}

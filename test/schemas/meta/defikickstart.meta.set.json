@@ -1,0 +1,34 @@
+{
+  "id": "defi-kickstart-metaqust",
+  "name": "DeFi Kickstart (PoolTogether/Bankless) Quest",
+  "type": "metameta.v1.set.meta",
+  "entities": [
+    "ipfs:://mtwirsqawjuoloq2gvtyug2tc3jbf5htm2zeo4rsknfiv3fdp46a",
+    "ipfs:://mtwirsqawjuoloq2gvtyug2tc3jbf5htm2zeo4rsknfiv3fdp46a"
+  ],
+  "rules": [
+    {
+      "id": "set.smartcontract.defikickstart.v0.1.0",
+      "name": "meta.defi-intro.defi.complete",
+      "type": "metameta.v1.meta.set.rule",
+      "target": "smartcontract.defi.swap-and-save",
+      "operations": [
+        {
+          "type": "smartcontract.set",
+          "condition": "complete"
+        }
+      ]
+    },
+    {
+      "name": "meta.defi-intro.bankless.complete",
+      "type": "metameta.v1.meta.set.rule",
+      "target": "set.did.bankless.defikickstart.v.0.1.0",
+      "operations": [
+        {
+          "type": "did.set",
+          "condition": "complete"
+        }
+      ]
+    }
+  ]
+}

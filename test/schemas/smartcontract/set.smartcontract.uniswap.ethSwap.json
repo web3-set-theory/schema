@@ -1,0 +1,50 @@
+{
+    "id": "set.smartcontract.uniswap.ethSwap",
+    "name": "Uniswap: Swap using ETH/WETH",
+    "type": "metameta.v1.set.smartcontract",
+    "timestamp": "2018-11-13T20:20:39+00:00",
+    "version": {
+      "major": 0,
+      "minor": 1,
+      "patch": 0
+    },
+    "description": "Checks for a swap between ETH/WETH and any token pair using Uniswap",
+    "keywords": ["defi", "uniswap", "eth", "weth", "swap"],
+    "entities": [
+      {
+          "id": "contract.uniswap.v3.swapRouter",
+          "name": "Uniswap V3 SwapRouter",
+          "object": "entity.smartcontract",
+          "type": "smartcontract",
+          "chainId": 1,
+          "address": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
+          "abi": "ipfs://QmfVfkhD5G23NChC2tTndtxv5MH5oYb9fF2BZcRsWyq7uK"
+      }
+    ],
+    "conditions": [
+      {
+          "id": "contract.uniswap.v3.swapRouter.condition.0",
+          "name": "Uniswap.exactInput: Swap using WETH",
+          "object": "condition.smartcontract",
+          "entityId": "contract.uniswap.v3.swapRouter",
+          "type": "function",
+          "identifier": "exactInput",
+          "operations": [
+              {
+                  "index": "[0][1]",
+                  "type": "address",
+                  "condition": "eq",
+                  "value": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+              }
+          ]
+      }
+    ],
+    "rules": [
+      {
+          "id": "contract.uniswap.v3.swapRouter.rule.0",
+          "object": "rule.smartcontract",
+          "conditionIds": ["contract.uniswap.v3.swapRouter.condition.0"],
+          "validation": ["complete"]
+      }
+    ]
+  }

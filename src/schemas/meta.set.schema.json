@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/metameta-protocol/metametasets-schema/src/meta.set.schema.json",
+  "title": "Meta Set",
+  "description": "Schema for sets of sets and contextual rules",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the meta set",
+        "minLength": 1,
+        "maxLength": 20,
+        "pattern": "^[\\w ]+$",
+        "examples": [
+          "Introduction to Metaverse Beginner Queset"
+        ]
+      },
+      "type": {
+        "type": "string",
+        "description": "The set type",
+        "minLength": 1,
+        "maxLength": 20,
+        "pattern": "^[\\w ]+$"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The timestamp of this list version; i.e. when this immutable version of the set was created"
+      },
+      "version": {
+        "$ref": "#/definitions/Version"
+      },
+      "entities": {
+        "type": "array",
+        "description": "The list of smart contracts included in the set",
+        "items": {
+          "$ref": "#/definitions/SmartContractSetEntity"
+        },
+        "minItems": 1,
+        "maxItems": 10000
+      },
+      "rules": {
+        "type": "array",
+        "description": "Rules that apply to the set of smart contracts.",
+        "items": {
+          "$ref": "#/definitions/SmartContractSetRule"
+        },
+        "minItems": 1,
+        "maxItems": 10000
+      }
+    }
+}
