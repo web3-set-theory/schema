@@ -1,8 +1,8 @@
 {
    "$schema":"http://json-schema.org/draft-07/schema#",
    "$id":"https://github.com/metameta-protocol/metametasets-schema/src/set.smartcontract.schema.json",
-   "title":"Smart Contract Set Schema",
-   "description":"A smart contract set schema for usage in Web3 Set Theory",
+   "title":"Smart Contract Entity Set Schema",
+   "description":"A smart contract set schema for Web3 Set Theory",
    "type":"object",
    "additionalProperties":true,
    "required":[
