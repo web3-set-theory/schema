@@ -1,4 +1,5 @@
-import { nextVersion, VersionUpgrade } from '../src/utils';
+import { VersionUpgrade } from '../../src';
+import { nextVersion } from '../../src/utils';
 
 describe('#nextVersion', () => {
   it('none', () => {

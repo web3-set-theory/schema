@@ -1,14 +1,5 @@
-/**
- * Enum describing types of version differences
- */
-import { Version } from '../types/core.types';
-
-export enum VersionUpgrade {
-  NONE,
-  PATCH,
-  MINOR,
-  MAJOR,
-}
+import { VersionUpgrade } from '..';
+import { Version } from '../types';
 
 /**
  * Return the upgrade type from the base version to the update version.
@@ -34,3 +25,5 @@ export function getVersionUpgrade(
   }
   return update.patch > base.patch ? VersionUpgrade.PATCH : VersionUpgrade.NONE;
 }
+
+export default getVersionUpgrade;

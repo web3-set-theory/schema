@@ -68,6 +68,26 @@ Multiple arguments can be created for each `condition` **but....** those argumen
 }
 ```
 
+**Type Options**
+- address
+- bignumber (uint, uint8, uin32, ... , uint256)
+- bytes
+- bytes32
+- string
+
+*NOTICE:*  A `struct` type might be introduced in the future. But as of now everything can be accomplished by defining multiple arguments each targeting a different index position of a specific struct compute state in a function or event signature.
+
+**Condition Options**
+
+- gt
+- gte
+- lt
+- lte
+- eq
+- !eq
+- contains
+- match
+
 Condition arguments are applied to the condition `signature` once constructed.
 
 For example the ERC20 `transfer(address,uint256)` function signature has 2 arguments with `address` and `uint256` type respectively.
@@ -87,7 +107,28 @@ Rules enable a dynamic sets, focusing less on "how" to complete a task, instead 
 
 ### Rules Fields
 **Core Fields**
-- entityId
+
+- conditionIds: Array<string>
+- range: Range
+- apply: Array<string>
+- inputs: Array<Array<string>>
+
+#### Range Type
+The `Range` field describes how to apply rules conditionally to a different range of condition ids.
+
+- all = conditionTotal/conditionTotal
+- any = 1/conditionTotal
+- Number = N/conditionTotal
+- [ Number , ... , Number ] = [N/conditionIndex, ..., N/conditionIndex]
+
+### Examples
+
+```
+conditionsIds: ['example-1']
+range: 'all'
+apply: ['complete', 'beforeBlock', 'betweenTimestamps']
+inputs: [ [true], [50505050], ['22222222', '333333333'] ]
+```
 
 # 🧩 Examples
 

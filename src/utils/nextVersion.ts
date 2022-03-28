@@ -1,12 +1,11 @@
-import { VersionUpgrade } from './getVersionUpgrade';
-import { Version } from '../types/core.types';
+import { Version, VersionUpgrade } from '../types';
 
 /**
  * Returns the next version of the list given a base version and the upgrade type
  * @param base current version
  * @param bump the upgrade type
  */
-export function nextVersion(base: Version, bump: VersionUpgrade): Version {
+function nextVersion(base: Version, bump: VersionUpgrade): Version {
   switch (bump) {
     case VersionUpgrade.NONE:
       return base;
@@ -29,3 +28,5 @@ export function nextVersion(base: Version, bump: VersionUpgrade): Version {
       };
   }
 }
+
+export default nextVersion;

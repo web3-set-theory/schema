@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/metameta-protocol/metametasets-schema/src/meta.set.schema.json",
-  "title": "Meta Set",
-  "description": "Schema for sets of sets and contextual rules",
+  "title":"Meta Entity Set Schema",
+  "description":"A meta set schema for Web3 Set Theory",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -13,7 +13,7 @@
         "maxLength": 20,
         "pattern": "^[\\w ]+$",
         "examples": [
-          "Introduction to Metaverse Beginner Queset"
+          "Introduction to Metaverse Beginner Quest"
         ]
       },
       "type": {

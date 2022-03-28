@@ -1,14 +1,14 @@
 {
   "name": "@web3-set-theory/schema",
-  "description": "Web3 Set Theory schema, types and interfaces.",
+  "description": "Web3 Set Theory JSON schema and TypeScript definitions",
   "version": "0.1.0-beta.2",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Kames Geraghty",
-    "url": "https://github.com/web3-set-theory"
+    "url": "https://kames.me"
   },
   "repository": {
-    "url": "https://github.com/web3-/schema",
+    "url": "https://github.com/web3-set-theory/schema",
     "type": "git"
   },
   "engines": {
@@ -63,5 +63,8 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.5.0"
   }
 }
