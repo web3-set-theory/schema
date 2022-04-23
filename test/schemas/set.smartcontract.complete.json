@@ -1,9 +1,9 @@
 {
-   "id": "set-erc20-example",
+   "id": "set-smartcontract-complete",
    "object": "set.smartcontract",
-   "name": "ERC20 Smart Contract Set Example",
-   "description": "Demonstrate set validation using a ERC20 interface on a Hardhat EVM Node",
-   "timestamp": "2018-11-13T20:20:39+00:00",
+   "name": "Complete Smart Contract Set",
+   "description": "An example of a complete smart contract set",
+   "createdAt": "2022-01-01T00:00:00+00:00",
    "version": {
      "major": 0,
      "minor": 1,
@@ -14,7 +14,7 @@
          "id": "erc20-function-transfer",
          "name": "ERC20: Transfer Function",
          "object": "condition.smartcontract",
-         "entityId": "erc20-generic-token",
+         "eid": "erc20-generic-token",
          "type": "transaction",
          "signature": "transfer(address,uint256)",
          "arguments": [
@@ -31,7 +31,7 @@
          "id": "erc20-event-Transfer",
          "name": "ERC20: Transfer Event",
          "object": "condition.smartcontract",
-         "entityId": "erc20-generic-token",
+         "eid": "erc20-generic-token",
          "type": "log",
          "signature": "Transfer(address indexed,address indexed,uint256)",
          "arguments": [
@@ -48,7 +48,7 @@
            "id": "erc20-token-burn",
            "name": "ERC20: Burn",
            "object": "condition.smartcontract",
-           "entityId": "erc20-generic-token",
+           "eid": "erc20-generic-token",
            "type": "transaction",
            "signature": "transfer(address,uint256)",
            "arguments": [
@@ -72,7 +72,7 @@
          "id": "erc20-state-read",
          "name": "ERC20: BalanceOf",
          "object": "condition.smartcontract",
-         "entityId": "erc20-generic-token",
+         "eid": "erc20-generic-token",
          "type": "read",
          "signature": "balanceOf(address)",
          "inputs": [
@@ -97,7 +97,7 @@
          "id": "erc20-state-read-below",
          "name": "ERC20: BalanceOf",
          "object": "condition.smartcontract",
-         "entityId": "erc20-generic-token",
+         "eid": "erc20-generic-token",
          "type": "read",
          "signature": "balanceOf(address)",
          "inputs": [
@@ -123,9 +123,9 @@
      {
       "id":"erc20-example-rule-0",
       "object":"rule.smartcontract",
-      "conditionIds": ["erc20-function-transfer", "erc20-event-Transfer", "erc20-state-read"],
-      "range": "all",
-      "apply": ["complete"],
+      "cids": ["erc20-function-transfer", "erc20-event-Transfer", "erc20-state-read"],
+      "ranges": "all",
+      "methods": ["isComplete"],
       "inputs": [[true]]
     }
    ],

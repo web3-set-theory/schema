@@ -2,16 +2,12 @@
   "id": "set-smartcontract-empty",
   "name": "Empty Smart Contract Set",
   "object": "set.smartcontract",
-  "timestamp": "2020-01-01T00:00:00+00:00",
+  "createdAt": "2020-01-01T00:00:00+00:00",
   "version": {
     "major": 0,
     "minor": 1,
     "patch": 0
   },
-  "keywords": [],
-  "tags": {},
-  "description": "",
-  "contentUri": "",
   "entities": [],
   "conditions": [],
   "rules": []

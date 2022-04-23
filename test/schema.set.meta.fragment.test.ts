@@ -2,7 +2,7 @@ import Ajv from 'ajv';
 import { SchemaSetMetaFragment } from '../src/schemas';
 import addFormats from 'ajv-formats';
 
-import SetFragment from './schemas/set.meta.fragment.json';
+import FragmentComplete from './schemas/fragment.meta.complete.json';
 
 const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
@@ -22,6 +22,6 @@ describe('schema:set:meta', () => {
   });
 
   it('validates: fragment set schema template', () => {
-    checkSchema(SetFragment, true);
+    checkSchema(FragmentComplete, true);
   });
 });

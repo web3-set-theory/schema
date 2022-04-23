@@ -1,9 +1,9 @@
 import { SmartContractSet } from '../src';
-import SetSmartContractERC20 from './schemas/set.smartcontract.ERC20.json';
+import SetComplete from './schemas/set.smartcontract.complete.json';
 
 describe('types', () => {
   it('matches example schema', () => {
-    const set: SmartContractSet = SetSmartContractERC20;
-    expect(set.name).toEqual('ERC20 Smart Contract Set Example');
+    const set: SmartContractSet = SetComplete;
+    expect(set.name).toEqual('Complete Smart Contract Set');
   });
 });

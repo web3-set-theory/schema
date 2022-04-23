@@ -22,7 +22,7 @@ export interface Set {
   id: string;
   name: string;
   object: string;
-  timestamp: string;
+  createdAt: string;
   version: Version;
   description?: string;
   keywords?: string[];
@@ -54,12 +54,13 @@ export interface SmartContractEntity {
   address: string;
   chainId: number;
   abi: any;
+  meta?: any;
 }
 
 export type SmartContractCondition = {
   id: string;
   name: string;
-  entityId: string;
+  eid: string;
   type: SmartContractConditionType | string;
   signature: string;
   arguments: SmartContractConditionArgument[];
@@ -83,9 +84,9 @@ export type SmartContractConditionInput = {
 export interface SmartContractRule {
   id: string;
   name?: string;
-  conditionIds?: Array<string>;
-  range: Range;
-  apply?: Array<string>;
+  cids?: Array<string>;
+  ranges: Range;
+  methods?: Array<string>;
   inputs?: Array<Array<any>>;
 }
 
@@ -159,7 +160,7 @@ export interface MetaCondition {
   id: string;
   name: string;
   type: string;
-  entityId: string;
+  eid: string;
   arguments: MetaConditionArgument[];
 }
 

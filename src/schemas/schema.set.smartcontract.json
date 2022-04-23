@@ -9,7 +9,7 @@
        "id",
        "name",
        "object",
-       "timestamp",
+       "createdAt",
        "version",
        "conditions",
        "entities",
@@ -20,12 +20,22 @@
           "$ref":"#/definitions/IdentifierDefinition"
        },
        "name":{
-          "$ref":"#/definitions/NameDefinition"
+         "type":"string",
+         "description":"Name of the set.",
+         "examples": [
+            "Basic Smart Contract Set"
+         ]
        },
        "object":{
-          "$ref":"#/definitions/ObjectDefinition"
+          "type":"string",
+          "pattern":"^set.smartcontract$"
        },
-       "timestamp":{
+       "createdAt":{
+          "type":"string",
+          "format":"date-time",
+          "description": "The timestamp of this set version; i.e. when this immutable version of the list was created"
+       },
+       "updatedAt":{
           "type":"string",
           "format":"date-time",
           "description":"The timestamp of when the set was created"
@@ -33,133 +43,114 @@
        "version":{
           "$ref":"#/definitions/Version"
        },
+       "contentUri":{
+         "type":"string",
+         "description":"URI referencing to an object adhering to the set-content schema.",
+         "format":"uri",
+         "examples":[
+            "ipfs://"
+         ]
+      },
+       "keywords":{
+         "type":"array",
+         "description":"Keywords associated with the contents of the list; may be used in list discoverability",
+         "items":{
+            "type":"string",
+            "description":"A keyword to describe the contents of the list",
+            "minLength":1,
+            "maxLength":20,
+            "pattern":"^[\\w ]+$",
+            "examples":[
+               "defi",
+               "swap",
+               "deposit"
+            ]
+         },
+         "maxItems":20,
+         "uniqueItems":true
+      },
+      "tags":{
+         "type":"object",
+         "description": "An array of tag identifiers associated with the token; tags are defined at the list level",
+         "propertyNames":{
+            "$ref":"#/definitions/TagIdentifier"
+         },
+         "additionalProperties":{
+            "$ref":"#/definitions/TagDefinition"
+         },
+         "maxProperties":20,
+         "examples":[
+            {
+               "savings":{
+                  "name":"Savings",
+                  "description":"Smart contract with savings features"
+               }
+            }
+         ]
+      },
        "entities":{
           "type":"array",
-          "description":"The list of entities included in the set.",
+          "description":"Entities in the smart contract set.",
           "items":{
              "$ref":"#/definitions/EntityDefinition"
           },
-          "minItems":1,
-          "maxItems":10000
+          "minItems":0,
+          "maxItems":16
        },
        "conditions":{
           "type":"array",
-          "description":"Conditions that apply to the set entities.",
+          "description":"Conditions in the smart contract set.",
           "items":{
              "$ref":"#/definitions/ConditionDefinition"
           },
           "minItems":0,
-          "maxItems":10000
+          "maxItems":256
        },
        "rules":{
           "type":"array",
-          "description":"Rules that apply to the set conditions.",
+          "description":"Rules in the smart contract set.",
           "items":{
              "$ref":"#/definitions/RuleDefinition"
           },
           "minItems":0,
-          "maxItems":10000
-       },
-       "keywords":{
-          "type":"array",
-          "description":"Keywords associated with the contents of the list; may be used in list discoverability",
-          "items":{
-             "type":"string",
-             "description":"A keyword to describe the contents of the list",
-             "minLength":1,
-             "maxLength":20,
-             "pattern":"^[\\w ]+$",
-             "examples":[
-                "defi",
-                "swap",
-                "deposit"
-             ]
-          },
-          "maxItems":20,
-          "uniqueItems":true
-       },
-       "tags":{
-          "type":"object",
-          "description":"A mapping of tag identifiers to their name and description",
-          "propertyNames":{
-             "$ref":"#/definitions/TagIdentifier"
-          },
-          "additionalProperties":{
-             "$ref":"#/definitions/TagDefinition"
-          },
-          "maxProperties":20,
-          "examples":[
-             {
-                "savings":{
-                   "name":"Savings",
-                   "description":"Smart contract with savings features"
-                }
-             }
-          ]
-       },
-       "contentUri":{
-          "type":"string",
-          "description":"A URI to a valid content object",
-          "format":"uri",
-          "examples":[
-             "ipfs://"
-          ]
+          "maxItems":256
        }
     },
     "definitions":{
        "IdentifierDefinition":{
           "type":"string",
-          "description":"Identifier (Generic)",
+          "description":"Identifier",
           "minLength":1,
-          "maxLength":256,
-          "examples":[
-             "contract.uniswap.v3.swapRouter"
-          ]
-       },
-       "ObjectDefinition":{
-          "type":"string",
-          "description":"Object identifier",
-          "minLength":1,
-          "maxLength":256,
-          "pattern":"^[ \\w\\.,:]+$",
-          "examples":[
-             "set.meta",
-             "condition.smartcontract",
-             "rule.did"
-          ]
-       },
-       "NameDefinition":{
-          "type":"string",
-          "description":"Name (Generic)",
-          "minLength":1,
-          "maxLength":256,
-          "examples":[
-             "Uniswap.exactInputSingle: Swap for 100 USDC (Minimum)"
-          ]
+          "maxLength":256
        },
        "EntityDefinition":{
           "type":"object",
-          "description":"SmartContract Set Entity list",
-          "additionalProperties":true,
+          "description":"",
+          "additionalProperties":false,
           "properties":{
              "id":{
                 "$ref":"#/definitions/IdentifierDefinition"
              },
              "object":{
                 "type":"string",
-                "pattern":"^entity.smartcontract$",
-                "description":"Object identifier"
+                "description":"Object identifier",
+                "pattern":"^entity.smartcontract$"
              },
              "name":{
-                "$ref":"#/definitions/NameDefinition"
+                "type":"string",
+                "description":"Entity name.",
+                "examples": [
+                   "SmartContract: PoolTogether V4"
+                ]
              },
              "chainId":{
                 "type":"integer",
-                "description":"The chain ID of the EVM network",
+                "description":"Chain ID of the EVM network",
                 "minimum":1,
                 "examples":[
                    1,
-                   42
+                   137,
+                   43114
                 ]
              },
              "address":{
@@ -169,6 +160,9 @@
                 "examples":[
                    "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
                 ]
+             },
+             "meta": {
+               "$ref": "#/definitions/MetaMap"
              },
              "abi":{
                 "type":"array",
@@ -427,7 +421,7 @@
           "required":[
              "id",
              "name",
-             "entityId",
+             "eid",
              "type",
              "signature",
              "arguments"
@@ -437,14 +431,18 @@
                 "$ref":"#/definitions/IdentifierDefinition"
              },
              "name":{
-                "$ref":"#/definitions/NameDefinition"
+               "type":"string",
+               "description":"Name of the set.",
+               "examples": [
+                  "SmartContract: PoolTogether V4"
+               ]
              },
              "object":{
                 "type":"string",
                 "pattern":"^condition.smartcontract$",
                 "description":"Object identifier"
              },
-             "entityId":{
+             "eid":{
                 "$ref":"#/definitions/IdentifierDefinition"
              },
              "type":{
@@ -471,7 +469,7 @@
                 "type":"string",
                 "description":"Smart contract condition type signature (function(address,uint256) or Event(address,uint256,uint256))",
                 "examples":[
-                   "functionName",
+
                    "functionName(address, uint256)",
                    "Event(address,uint256,uint256)"
                 ]
@@ -485,45 +483,47 @@
              },
              "arguments":{
                 "type":"array",
-                "description":"Condition types that are applied to the target entityId",
+                "description":"Condition types applied to the eid reference object",
                 "items":{
                    "$ref":"#/definitions/ConditionArgumentDefinition"
                 }
+             },
+             "meta": {
+               "$ref": "#/definitions/MetaMap"
              }
           }
        },
        "RuleDefinition":{
           "type":"object",
-          "description":"SmartContract Set Rule list",
+          "description":"",
           "additionalProperties":false,
           "required":[
              "id",
              "object",
-             "conditionIds",
-             "range",
-             "apply",
+             "cids",
+             "ranges",
+             "methods",
              "inputs"
           ],
           "properties":{
              "id":{
                 "$ref":"#/definitions/IdentifierDefinition"
              },
-             "name":{
-                "$ref":"#/definitions/NameDefinition"
-             },
              "object":{
-                "$ref":"#/definitions/ObjectDefinition"
+               "type":"string",
+               "description":"Object identifier",
+               "pattern":"^rule.smartcontract$"
              },
-             "conditionIds":{
+             "cids":{
                 "type":"array",
-                "description":"List of condition ids to apply to the rule",
+                "description":"Condition IDs to enforce rule.",
                 "items":{
                    "$ref":"#/definitions/IdentifierDefinition"
                 },
                 "maxItems":256,
                 "uniqueItems":true
              },
-             "range":{
+             "ranges":{
                 "description":"Smart contract rule validation",
                 "oneOf":[
                    {
@@ -555,14 +555,14 @@
                    }
                 ]
              },
-             "apply":{
+             "methods":{
                 "type":"array",
-                "description":"Smart contract rule validation",
+                "description":"",
                 "items":{
                    "type":"string",
                    "oneOf":[
                       {
-                         "pattern":"^complete$"
+                         "pattern":"^isComplete$"
                       },
                       {
                          "pattern":"^minimumConfirmations$"
@@ -590,7 +590,7 @@
              },
              "inputs":{
                 "type":"array",
-                "description":"Arguments to pass to the rule validation",
+                "description":"",
                 "items":{
                    "anyOf":[
                       {
@@ -610,6 +610,9 @@
                       }
                    ]
                 }
+             },
+             "meta": {
+               "$ref": "#/definitions/MetaMap"
              }
           }
        },
@@ -654,6 +657,114 @@
                 "description":"A token with value pegged to another asset"
              }
           ]
+       },
+       "MetaIdentifier": {
+         "type": "string",
+         "description": "The name of a token extension property",
+         "minLength": 1,
+         "maxLength": 40,
+         "pattern": "^[\\w]+$",
+         "examples": [
+           "color",
+           "is_fee_on_transfer",
+           "aliases"
+         ]
+       },
+       "MetaMap": {
+         "type": "object",
+         "description": "An object containing any arbitrary or vendor-specific token metadata",
+         "maxProperties": 10,
+         "propertyNames": {
+           "$ref": "#/definitions/MetaIdentifier"
+         },
+         "additionalProperties": {
+           "$ref": "#/definitions/MetaValue"
+         },
+         "examples": [
+           {
+             "color": "#000000",
+             "is_verified_by_me": true
+           },
+           {
+             "x-bridged-addresses-by-chain": {
+               "1": {
+                 "bridgeAddress": "0x4200000000000000000000000000000000000010",
+                 "tokenAddress": "0x4200000000000000000000000000000000000010"
+               }
+             }
+           }
+         ]
+       },
+       "MetaPrimitiveValue": {
+         "anyOf": [
+           {
+             "type": "string",
+             "minLength": 1,
+             "maxLength": 42,
+             "examples": [
+               "#00000"
+             ]
+           },
+           {
+             "type": "boolean",
+             "examples": [
+               true
+             ]
+           },
+           {
+             "type": "number",
+             "examples": [
+               15
+             ]
+           },
+           {
+             "type": "array"
+           },
+           {
+             "type": "null"
+           }
+         ]
+       },
+       "MetaValue": {
+         "anyOf": [
+           {
+             "$ref": "#/definitions/MetaPrimitiveValue"
+           },
+           {
+             "type": "object",
+             "maxProperties": 10,
+             "propertyNames": {
+               "$ref": "#/definitions/MetaIdentifier"
+             },
+             "additionalProperties": {
+               "$ref": "#/definitions/MetaValueInner0"
+             }
+           }
+         ]
+       },
+       "MetaValueInner0": {
+         "anyOf": [
+           {
+             "$ref": "#/definitions/MetaPrimitiveValue"
+           },
+           {
+             "type": "object",
+             "maxProperties": 10,
+             "propertyNames": {
+               "$ref": "#/definitions/MetaIdentifier"
+             },
+             "additionalProperties": {
+               "$ref": "#/definitions/MetaValueInner1"
+             }
+           }
+         ]
+       },
+       "MetaValueInner1": {
+         "anyOf": [
+           {
+             "$ref": "#/definitions/MetaPrimitiveValue"
+           }
+         ]
        },
        "Version":{
           "type":"object",
