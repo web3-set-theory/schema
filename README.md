@@ -29,7 +29,3 @@ yarn add @web3-set-theory/schema
 ```sh
 git clone https://github.com/web3-set-theory/schema
 ```
-
-# Task List
-
-- [ ] Identifier Definition regex pattern
