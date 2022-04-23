@@ -1,7 +1,7 @@
 {
   "name": "@web3-set-theory/schema",
   "description": "Web3 Set Theory JSON schema and TypeScript definitions",
-  "version": "0.1.0-beta.2",
+  "version": "0.2.0-beta.1",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Kames Geraghty",
