@@ -1,585 +1,705 @@
 {
-   "$schema":"http://json-schema.org/draft-07/schema#",
-   "$id":"https://github.com/metameta-protocol/metametasets-schema/src/set.smartcontract.schema.json",
-   "title":"Smart Contract Entity Set Schema",
-   "description":"A smart contract set schema for Web3 Set Theory",
-   "type":"object",
-   "additionalProperties":true,
-   "required":[
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "$id":"https://github.com/metameta-protocol/metametasets-schema/src/set.smartcontract.schema.json",
+    "title":"Web3 Smart Contract Entity Set Schema",
+    "description":"A smart contract set schema for Web3 Set Theory protocol.",
+    "type":"object",
+    "additionalProperties":true,
+    "required":[
        "id",
        "name",
        "object",
        "timestamp",
        "version",
-       "entities",
        "conditions",
+       "entities",
        "rules"
-   ],
-   "properties":{
+    ],
+    "properties":{
        "id":{
-         "$ref":"#/definitions/IdentifierDefinition"
+          "$ref":"#/definitions/IdentifierDefinition"
        },
        "name":{
-           "$ref":"#/definitions/NameDefinition"
+          "$ref":"#/definitions/NameDefinition"
        },
        "object":{
-           "$ref":"#/definitions/ObjectDefinition"
+          "$ref":"#/definitions/ObjectDefinition"
        },
        "timestamp":{
-           "type":"string",
-           "format":"date-time",
-           "description":"The timestamp of when the set was created"
+          "type":"string",
+          "format":"date-time",
+          "description":"The timestamp of when the set was created"
        },
        "version":{
-           "$ref":"#/definitions/Version"
+          "$ref":"#/definitions/Version"
        },
        "entities":{
-           "type":"array",
-           "description":"The list of entities included in the set.",
-           "items":{
-               "$ref":"#/definitions/EntityDefinition"
-           },
-           "minItems":1,
-           "maxItems":10000
+          "type":"array",
+          "description":"The list of entities included in the set.",
+          "items":{
+             "$ref":"#/definitions/EntityDefinition"
+          },
+          "minItems":1,
+          "maxItems":10000
        },
        "conditions":{
-           "type":"array",
-           "description":"Conditions that apply to the set entities.",
-           "items":{
-               "$ref":"#/definitions/ConditionDefinition"
-           },
-           "minItems":0,
-           "maxItems":10000
+          "type":"array",
+          "description":"Conditions that apply to the set entities.",
+          "items":{
+             "$ref":"#/definitions/ConditionDefinition"
+          },
+          "minItems":0,
+          "maxItems":10000
        },
        "rules":{
-           "type":"array",
-           "description":"Rules that apply to the set conditions.",
-           "items":{
-               "$ref":"#/definitions/RuleDefinition"
-           },
-           "minItems":0,
-           "maxItems":10000
+          "type":"array",
+          "description":"Rules that apply to the set conditions.",
+          "items":{
+             "$ref":"#/definitions/RuleDefinition"
+          },
+          "minItems":0,
+          "maxItems":10000
        },
        "keywords":{
-           "type":"array",
-           "description":"Keywords associated with the contents of the list; may be used in list discoverability",
-           "items":{
-               "type":"string",
-               "description":"A keyword to describe the contents of the list",
-               "minLength":1,
-               "maxLength":20,
-               "pattern":"^[\\w ]+$",
-               "examples":[
-                   "defi",
-                   "swap",
-                   "deposit"
-               ]
-           },
-           "maxItems":20,
-           "uniqueItems":true
+          "type":"array",
+          "description":"Keywords associated with the contents of the list; may be used in list discoverability",
+          "items":{
+             "type":"string",
+             "description":"A keyword to describe the contents of the list",
+             "minLength":1,
+             "maxLength":20,
+             "pattern":"^[\\w ]+$",
+             "examples":[
+                "defi",
+                "swap",
+                "deposit"
+             ]
+          },
+          "maxItems":20,
+          "uniqueItems":true
        },
        "tags":{
-           "type":"object",
-           "description":"A mapping of tag identifiers to their name and description",
-           "propertyNames":{
-               "$ref":"#/definitions/TagIdentifier"
-           },
-           "additionalProperties":{
-               "$ref":"#/definitions/TagDefinition"
-           },
-           "maxProperties":20,
-           "examples":[
-               {
-                   "savings":{
-                       "name":"Savings",
-                       "description":"Smart contract with savings features"
-                   }
-               }
-           ]
+          "type":"object",
+          "description":"A mapping of tag identifiers to their name and description",
+          "propertyNames":{
+             "$ref":"#/definitions/TagIdentifier"
+          },
+          "additionalProperties":{
+             "$ref":"#/definitions/TagDefinition"
+          },
+          "maxProperties":20,
+          "examples":[
+             {
+                "savings":{
+                   "name":"Savings",
+                   "description":"Smart contract with savings features"
+                }
+             }
+          ]
        },
        "contentUri":{
-           "type":"string",
-           "description":"A URI to a valid content object",
-           "format":"uri",
-           "examples":[
-               "ipfs://"
-           ]
+          "type":"string",
+          "description":"A URI to a valid content object",
+          "format":"uri",
+          "examples":[
+             "ipfs://"
+          ]
        }
-   },
-   "definitions":{
+    },
+    "definitions":{
        "IdentifierDefinition":{
-           "type":"string",
-           "description":"Identifier (Generic)",
-           "minLength":1,
-           "maxLength":256,
-           "examples":[
-               "contract.uniswap.v3.swapRouter"
-           ]
+          "type":"string",
+          "description":"Identifier (Generic)",
+          "minLength":1,
+          "maxLength":256,
+          "examples":[
+             "contract.uniswap.v3.swapRouter"
+          ]
        },
        "ObjectDefinition":{
-           "type":"string",
-           "description":"Object identifier",
-           "minLength":1,
-           "maxLength":256,
-           "pattern":"^[ \\w\\.,:]+$",
-           "examples":[
-               "set.meta",
-               "condition.smartcontract",
-               "rule.did"
-           ]
+          "type":"string",
+          "description":"Object identifier",
+          "minLength":1,
+          "maxLength":256,
+          "pattern":"^[ \\w\\.,:]+$",
+          "examples":[
+             "set.meta",
+             "condition.smartcontract",
+             "rule.did"
+          ]
        },
        "NameDefinition":{
-           "type":"string",
-           "description":"Name (Generic)",
-           "minLength":1,
-           "maxLength":256,
-           "examples":[
-               "Uniswap.exactInputSingle: Swap for 100 USDC (Minimum)"
-           ]
+          "type":"string",
+          "description":"Name (Generic)",
+          "minLength":1,
+          "maxLength":256,
+          "examples":[
+             "Uniswap.exactInputSingle: Swap for 100 USDC (Minimum)"
+          ]
        },
        "EntityDefinition":{
-           "type":"object",
-           "description":"SmartContract Set Entity list",
-           "additionalProperties":true,
-           "properties":{
-               "id":{
-                   "$ref":"#/definitions/IdentifierDefinition"
-               },
-               "object":{
-                    "type":"string",
-                    "pattern": "^entity.smartcontract$",
-                    "description":"Object identifier"
+          "type":"object",
+          "description":"SmartContract Set Entity list",
+          "additionalProperties":true,
+          "properties":{
+             "id":{
+                "$ref":"#/definitions/IdentifierDefinition"
+             },
+             "object":{
+                "type":"string",
+                "pattern":"^entity.smartcontract$",
+                "description":"Object identifier"
+             },
+             "name":{
+                "$ref":"#/definitions/NameDefinition"
+             },
+             "chainId":{
+                "type":"integer",
+                "description":"The chain ID of the EVM network",
+                "minimum":1,
+                "examples":[
+                   1,
+                   42
+                ]
+             },
+             "address":{
+                "type":"string",
+                "description":"The checksummed address of the smart contract on the specified chain ID",
+                "pattern":"^0x[a-fA-F0-9]{40}$",
+                "examples":[
+                   "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                ]
+             },
+             "abi":{
+                "type":"array",
+                "description":"A JSONFragment representing the smart contract ABI",
+                "items":{
+                   "anyOf":[
+                      {
+                         "type":"array"
+                      },
+                      {
+                         "type":"string"
+                      },
+                      {
+                         "type":"integer"
+                      },
+                      {
+                         "type":"boolean"
+                      },
+                      {
+                         "type":"object"
+                      }
+                   ]
                 },
-               "name":{
-                   "$ref":"#/definitions/NameDefinition"
-               },
-               "chainId":{
-                   "type":"integer",
-                   "description":"The chain ID of the EVM network",
-                   "minimum":1,
-                   "examples":[
-                       1,
-                       42
-                   ]
-               },
-               "address":{
-                   "type":"string",
-                   "description":"The checksummed address of the smart contract on the specified chain ID",
-                   "pattern":"^0x[a-fA-F0-9]{40}$",
-                   "examples":[
-                       "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-                   ]
-               },
-               "abi":{
-                   "type": "array",
-                   "description":"A JSONFragment representing the smart contract ABI",
-                    "items":{
-                        "anyOf": [
-                            {"type":"array"},
-                            {"type":"string"},
-                            {"type":"integer"},
-                            {"type":"boolean"},
-                            {"type":"object"}
-                        ]
-                    },
-                    "maxItems":256,
-                    "uniqueItems":true
-                }
-           },
-           "required":[
-               "id",
-               "name",
-               "chainId",
-               "address",
-               "abi"
-           ]
+                "maxItems":256,
+                "uniqueItems":true
+             }
+          },
+          "required":[
+             "id",
+             "name",
+             "chainId",
+             "address",
+             "abi"
+          ]
        },
        "ConditionInputDefinition":{
-           "type":"object",
-           "description":"Input parameters used for function state type",
-           "additionalProperties":false,
-           "required":[
-               "index",
-               "object",
-               "type",
-               "value"
-           ],
-           "properties":{
-            "object":{
+          "type":"object",
+          "description":"Input parameters used for function state type",
+          "additionalProperties":false,
+          "required":[
+             "index",
+             "object",
+             "type",
+             "value"
+          ],
+          "properties":{
+             "object":{
                 "type":"string",
-                "pattern": "^condition.input$",
+                "pattern":"^condition.input$",
                 "description":"Object identifier"
-            },
-               "index":{
-                   "anyOf": [
-                        {
-                            "type": "integer",
-                            "minimum": 0
-                        }, 
-                        {
-                            "type": "string",
-                            "maxLength": 256
-                        }
-                    ],
-                   "description":"Index position of the argument in the function or event signature",
-                   "examples":[
-                       "0",
-                       "[1]",
-                       "[0][1]"
-                   ]
-               },
-               "type":{
-                   "type":"string",
-                   "description":"The argument value type (address, bignumber, bytes32, bytes etc...)",
-                   "oneOf": [
-                        {"pattern": "^address$"},
-                        {"pattern": "^bignumber$"},
-                        {"pattern": "^bytes32$"},
-                        {"pattern": "^bytes$"},
-                        {"pattern": "^string$"},
-                        {"pattern": "^uint8$"},
-                        {"pattern": "^uint16$"},
-                        {"pattern": "^uint32$"},
-                        {"pattern": "^uint64$"},
-                        {"pattern": "^uint256$"},
-                        {"pattern": "^int8$"},
-                        {"pattern": "^int16$"},
-                        {"pattern": "^int32$"},
-                        {"pattern": "^int64$"},
-                        {"pattern": "^int256$"},
-                        {"pattern": "^bool$"}
-                    ]
-               },
-               "value":{
-                   "type":"string",
-                   "description":"Operator value to compare against the value in the index position"
-               }
-           }
+             },
+             "index":{
+                "anyOf":[
+                   {
+                      "type":"integer",
+                      "minimum":0
+                   },
+                   {
+                      "type":"string",
+                      "maxLength":256
+                   }
+                ],
+                "description":"Index position of the argument in the function or event signature",
+                "examples":[
+                   "0",
+                   "[1]",
+                   "[0][1]"
+                ]
+             },
+             "type":{
+                "type":"string",
+                "description":"The argument value type (address, bignumber, bytes32, bytes etc...)",
+                "oneOf":[
+                   {
+                      "pattern":"^address$"
+                   },
+                   {
+                      "pattern":"^bignumber$"
+                   },
+                   {
+                      "pattern":"^bytes32$"
+                   },
+                   {
+                      "pattern":"^bytes$"
+                   },
+                   {
+                      "pattern":"^string$"
+                   },
+                   {
+                      "pattern":"^uint8$"
+                   },
+                   {
+                      "pattern":"^uint16$"
+                   },
+                   {
+                      "pattern":"^uint32$"
+                   },
+                   {
+                      "pattern":"^uint64$"
+                   },
+                   {
+                      "pattern":"^uint256$"
+                   },
+                   {
+                      "pattern":"^int8$"
+                   },
+                   {
+                      "pattern":"^int16$"
+                   },
+                   {
+                      "pattern":"^int32$"
+                   },
+                   {
+                      "pattern":"^int64$"
+                   },
+                   {
+                      "pattern":"^int256$"
+                   },
+                   {
+                      "pattern":"^bool$"
+                   }
+                ]
+             },
+             "value":{
+                "type":"string",
+                "description":"Operator value to compare against the value in the index position"
+             }
+          }
        },
        "ConditionArgumentDefinition":{
-           "type":"object",
-           "description":"Definition of a tag that can be associated with a token via its identifier",
-           "additionalProperties":false,
-           "required":[
-               "index",
-               "object",
-               "type",
-               "comparator",
-               "value"
-           ],
-           "properties":{
-            "object":{
+          "type":"object",
+          "description":"Definition of a tag that can be associated with a token via its identifier",
+          "additionalProperties":false,
+          "required":[
+             "index",
+             "object",
+             "type",
+             "comparator",
+             "value"
+          ],
+          "properties":{
+             "object":{
                 "type":"string",
-                "pattern": "^condition.argument$",
+                "pattern":"^condition.argument$",
                 "description":"Object identifier"
-            },
-               "index":{
-                   "anyOf": [
-                        {
-                            "type": "integer",
-                            "minimum": 0
-                        }, 
-                        {
-                            "type": "string",
-                            "maxLength": 256
-                        }
-                    ],
-                   "description":"Index position of the argument in the function or event signature",
-                   "examples":[
-                       "0",
-                       "[1]",
-                       "[0][1]"
-                   ]
-               },
-               "type":{
-                   "type":"string",
-                   "description":"The argument value type (address, bignumber, bytes32, bytes etc...)",
-                   "oneOf": [
-                        {"pattern": "^address$"},
-                        {"pattern": "^bignumber$"},
-                        {"pattern": "^bytes32$"},
-                        {"pattern": "^bytes$"},
-                        {"pattern": "^string$"},
-                        {"pattern": "^uint8$"},
-                        {"pattern": "^uint16$"},
-                        {"pattern": "^uint32$"},
-                        {"pattern": "^uint64$"},
-                        {"pattern": "^uint256$"},
-                        {"pattern": "^int8$"},
-                        {"pattern": "^int16$"},
-                        {"pattern": "^int32$"},
-                        {"pattern": "^int64$"},
-                        {"pattern": "^int256$"},
-                        {"pattern": "^bool$"}
-                    ]
-               },
-               "comparator":{
-                   "type":"string",
-                   "description":"The conditional applied to the argument value (eq, gt, lt etc...)",
-                   "oneOf": [
-                       {"pattern": "^eq$"},
-                       {"pattern": "^neq$"},
-                       {"pattern": "^gt$"},
-                       {"pattern": "^lt$"},
-                       {"pattern": "^gte$"},
-                       {"pattern": "^lte$"},
-                       {"pattern": "^checksum$"}
-                   ]
-               },
-               "value":{
-                   "type":"string",
-                   "description":"Operator value to compare against the value in the index position"
-               }
-           }
+             },
+             "index":{
+                "anyOf":[
+                   {
+                      "type":"integer",
+                      "minimum":0
+                   },
+                   {
+                      "type":"string",
+                      "maxLength":256
+                   }
+                ],
+                "description":"Index position of the argument in the function or event signature",
+                "examples":[
+                   "0",
+                   "[1]",
+                   "[0][1]"
+                ]
+             },
+             "type":{
+                "type":"string",
+                "description":"The argument value type (address, bignumber, bytes32, bytes etc...)",
+                "oneOf":[
+                   {
+                      "pattern":"^address$"
+                   },
+                   {
+                      "pattern":"^bignumber$"
+                   },
+                   {
+                      "pattern":"^bytes32$"
+                   },
+                   {
+                      "pattern":"^bytes$"
+                   },
+                   {
+                      "pattern":"^string$"
+                   },
+                   {
+                      "pattern":"^uint8$"
+                   },
+                   {
+                      "pattern":"^uint16$"
+                   },
+                   {
+                      "pattern":"^uint32$"
+                   },
+                   {
+                      "pattern":"^uint64$"
+                   },
+                   {
+                      "pattern":"^uint256$"
+                   },
+                   {
+                      "pattern":"^int8$"
+                   },
+                   {
+                      "pattern":"^int16$"
+                   },
+                   {
+                      "pattern":"^int32$"
+                   },
+                   {
+                      "pattern":"^int64$"
+                   },
+                   {
+                      "pattern":"^int256$"
+                   },
+                   {
+                      "pattern":"^bool$"
+                   }
+                ]
+             },
+             "comparator":{
+                "type":"string",
+                "description":"The conditional applied to the argument value (eq, gt, lt etc...)",
+                "oneOf":[
+                   {
+                      "pattern":"^eq$"
+                   },
+                   {
+                      "pattern":"^neq$"
+                   },
+                   {
+                      "pattern":"^gt$"
+                   },
+                   {
+                      "pattern":"^lt$"
+                   },
+                   {
+                      "pattern":"^gte$"
+                   },
+                   {
+                      "pattern":"^lte$"
+                   },
+                   {
+                      "pattern":"^checksum$"
+                   }
+                ]
+             },
+             "value":{
+                "type":"string",
+                "description":"Operator value to compare against the value in the index position"
+             }
+          }
        },
        "ConditionDefinition":{
-           "type":"object",
-           "description":"SmartContract Set Condition list",
-           "additionalProperties":false,
-           "required":[
-               "id",
-               "name",
-               "entityId",
-               "type",
-               "signature",
-               "arguments"
-           ],
-           "properties":{
-               "id":{
-                   "$ref":"#/definitions/IdentifierDefinition"
-               },
-               "name":{
-                   "$ref":"#/definitions/NameDefinition"
-               },
-               "object":{
-                    "type":"string",
-                    "pattern": "^condition.smartcontract$",
-                    "description":"Object identifier"
-               },
-               "entityId":{
-                   "$ref":"#/definitions/IdentifierDefinition"
-               },
-               "type":{
-                   "type":"string",
-                   "description":"Smart contract condition type",
-                   "oneOf": [
-                        {"pattern": "^transaction$"},
-                        {"pattern": "^log$"},
-                        {"pattern": "^read$"}
-                    ],
-                   "examples":[
-                       "transaction",
-                       "log",
-                       "read"
-                   ]
-               },
-               "signature":{
-                   "type":"string",
-                   "description":"Smart contract condition type signature (function(address,uint256) or Event(address,uint256,uint256))",
-                   "examples":[
-                       "functionName",
-                       "functionName(address, uint256)",
-                       "Event(address,uint256,uint256)"
-                   ]
-               },
-               "inputs":{
-                   "type":"array",
-                   "description":"Condition inputs applied to condition:function:state type",
-                   "items":{
-                       "$ref":"#/definitions/ConditionInputDefinition"
+          "type":"object",
+          "description":"SmartContract Set Condition list",
+          "additionalProperties":false,
+          "required":[
+             "id",
+             "name",
+             "entityId",
+             "type",
+             "signature",
+             "arguments"
+          ],
+          "properties":{
+             "id":{
+                "$ref":"#/definitions/IdentifierDefinition"
+             },
+             "name":{
+                "$ref":"#/definitions/NameDefinition"
+             },
+             "object":{
+                "type":"string",
+                "pattern":"^condition.smartcontract$",
+                "description":"Object identifier"
+             },
+             "entityId":{
+                "$ref":"#/definitions/IdentifierDefinition"
+             },
+             "type":{
+                "type":"string",
+                "description":"Smart contract condition type",
+                "oneOf":[
+                   {
+                      "pattern":"^transaction$"
+                   },
+                   {
+                      "pattern":"^log$"
+                   },
+                   {
+                      "pattern":"^read$"
                    }
-               },
-               "arguments":{
-                   "type":"array",
-                   "description":"Condition types that are applied to the target entityId",
-                   "items":{
-                       "$ref":"#/definitions/ConditionArgumentDefinition"
-                   }
-               }
-           }
-       },
-   "RuleDefinition":{
-       "type":"object",
-       "description":"SmartContract Set Rule list",
-       "additionalProperties":false,
-       "required":[
-           "id",
-           "object",
-           "conditionIds",
-           "range",
-           "apply",
-           "inputs"
-       ],
-       "properties":{
-           "id":{
-               "$ref":"#/definitions/IdentifierDefinition"
-           },
-           "name":{
-               "$ref":"#/definitions/NameDefinition"
-           },
-           "object":{
-               "$ref":"#/definitions/ObjectDefinition"
-           },
-           "conditionIds":{
-               "type":"array",
-               "description":"List of condition ids to apply to the rule",
-               "items":{
-                   "$ref":"#/definitions/IdentifierDefinition"
-               },
-               "maxItems":256,
-               "uniqueItems":true
-           },
-           "range":{
-                "description":"Smart contract rule validation",
-                "oneOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^any$"
-                    },
-                    {
-                        "type": "string",
-                        "pattern": "^all$"
-                    },
-                    {
-                        "type": "number"
-                    },
-                    {
-                        "type": "array",
-                        "items": {
-                            "oneOf": [
-                                {
-                                    "type": "number"
-                                },
-                                {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "number"
-                                    }
-                                }
-                            ]
-                        }
-                    }
+                ],
+                "examples":[
+                   "transaction",
+                   "log",
+                   "read"
                 ]
-           },
-           "apply":{
+             },
+             "signature":{
+                "type":"string",
+                "description":"Smart contract condition type signature (function(address,uint256) or Event(address,uint256,uint256))",
+                "examples":[
+                   "functionName",
+                   "functionName(address, uint256)",
+                   "Event(address,uint256,uint256)"
+                ]
+             },
+             "inputs":{
+                "type":"array",
+                "description":"Condition inputs applied to condition:function:state type",
+                "items":{
+                   "$ref":"#/definitions/ConditionInputDefinition"
+                }
+             },
+             "arguments":{
+                "type":"array",
+                "description":"Condition types that are applied to the target entityId",
+                "items":{
+                   "$ref":"#/definitions/ConditionArgumentDefinition"
+                }
+             }
+          }
+       },
+       "RuleDefinition":{
+          "type":"object",
+          "description":"SmartContract Set Rule list",
+          "additionalProperties":false,
+          "required":[
+             "id",
+             "object",
+             "conditionIds",
+             "range",
+             "apply",
+             "inputs"
+          ],
+          "properties":{
+             "id":{
+                "$ref":"#/definitions/IdentifierDefinition"
+             },
+             "name":{
+                "$ref":"#/definitions/NameDefinition"
+             },
+             "object":{
+                "$ref":"#/definitions/ObjectDefinition"
+             },
+             "conditionIds":{
+                "type":"array",
+                "description":"List of condition ids to apply to the rule",
+                "items":{
+                   "$ref":"#/definitions/IdentifierDefinition"
+                },
+                "maxItems":256,
+                "uniqueItems":true
+             },
+             "range":{
+                "description":"Smart contract rule validation",
+                "oneOf":[
+                   {
+                      "type":"string",
+                      "pattern":"^any$"
+                   },
+                   {
+                      "type":"string",
+                      "pattern":"^all$"
+                   },
+                   {
+                      "type":"number"
+                   },
+                   {
+                      "type":"array",
+                      "items":{
+                         "oneOf":[
+                            {
+                               "type":"number"
+                            },
+                            {
+                               "type":"array",
+                               "items":{
+                                  "type":"number"
+                               }
+                            }
+                         ]
+                      }
+                   }
+                ]
+             },
+             "apply":{
                 "type":"array",
                 "description":"Smart contract rule validation",
-                "items": {
-                    "type": "string",
-                    "oneOf": [
-                        {"pattern": "^complete$"},
-                        {"pattern": "^minimumConfirmations$"},
-                        {"pattern": "^beforeTimestamp$"},
-                        {"pattern": "^afterTimestamp$"},
-                        {"pattern": "^beforeBlock$"},
-                        {"pattern": "^afterBlock$"},
-                        {"pattern": "^minimumComplete$"},
-                        {"pattern": "^percentageComplete$"}
-                    ]
+                "items":{
+                   "type":"string",
+                   "oneOf":[
+                      {
+                         "pattern":"^complete$"
+                      },
+                      {
+                         "pattern":"^minimumConfirmations$"
+                      },
+                      {
+                         "pattern":"^beforeTimestamp$"
+                      },
+                      {
+                         "pattern":"^afterTimestamp$"
+                      },
+                      {
+                         "pattern":"^beforeBlock$"
+                      },
+                      {
+                         "pattern":"^afterBlock$"
+                      },
+                      {
+                         "pattern":"^minimumComplete$"
+                      },
+                      {
+                         "pattern":"^percentageComplete$"
+                      }
+                   ]
                 }
-           },
-           "inputs":{
+             },
+             "inputs":{
                 "type":"array",
-               "description":"Arguments to pass to the rule validation",
-               "items":{
-                    "anyOf": [
-                        {"type":"array"},
-                        {"type":"string"},
-                        {"type":"integer"},
-                        {"type":"boolean"},
-                        {"type":"object"}
-                    ]
+                "description":"Arguments to pass to the rule validation",
+                "items":{
+                   "anyOf":[
+                      {
+                         "type":"array"
+                      },
+                      {
+                         "type":"string"
+                      },
+                      {
+                         "type":"integer"
+                      },
+                      {
+                         "type":"boolean"
+                      },
+                      {
+                         "type":"object"
+                      }
+                   ]
                 }
-           }
-       }
-   },
-   "TagIdentifier": {
-      "type": "string",
-      "description": "The unique identifier of a tag",
-      "minLength": 1,
-      "maxLength": 10,
-      "pattern": "^[\\w]+$",
-      "examples": [
-        "compound",
-        "stablecoin"
-      ]
-    },
-   "TagDefinition":{
-       "type":"object",
-       "description":"Definition of a tag that can be associated with a token via its identifier",
-       "additionalProperties":false,
-       "properties":{
-           "name":{
-               "type":"string",
-               "description":"The name of the tag",
-               "pattern":"^[ \\w]+$",
-               "minLength":1,
-               "maxLength":20
-           },
-           "description":{
-               "type":"string",
-               "description":"A user-friendly description of the tag",
-               "pattern":"^[ \\w\\.,:]+$",
-               "minLength":1,
-               "maxLength":200
-           }
+             }
+          }
        },
-       "required":[
-           "name",
-           "description"
-       ],
-       "examples":[
-           {
-               "name":"Stablecoin",
-               "description":"A token with value pegged to another asset"
-           }
-       ]
-   },
-   "Version":{
-       "type":"object",
-       "description":"The version of the set, used in change detection",
-       "examples":[
-           {
-               "major":1,
-               "minor":0,
-               "patch":0
-           }
-       ],
-       "additionalProperties":false,
-       "properties":{
-           "major":{
-               "type":"integer",
-               "description":"The major version of the list. Must be incremented when smart contract are removed from the list or smart contract addresses are changed.",
-               "minimum":0,
-               "examples":[
+       "TagIdentifier":{
+          "type":"string",
+          "description":"The unique identifier of a tag",
+          "minLength":1,
+          "maxLength":10,
+          "pattern":"^[\\w]+$",
+          "examples":[
+             "compound",
+             "stablecoin"
+          ]
+       },
+       "TagDefinition":{
+          "type":"object",
+          "description":"Definition of a tag that can be associated with a token via its identifier",
+          "additionalProperties":false,
+          "properties":{
+             "name":{
+                "type":"string",
+                "description":"The name of the tag",
+                "pattern":"^[ \\w]+$",
+                "minLength":1,
+                "maxLength":20
+             },
+             "description":{
+                "type":"string",
+                "description":"A user-friendly description of the tag",
+                "pattern":"^[ \\w\\.,:]+$",
+                "minLength":1,
+                "maxLength":200
+             }
+          },
+          "required":[
+             "name",
+             "description"
+          ],
+          "examples":[
+             {
+                "name":"Stablecoin",
+                "description":"A token with value pegged to another asset"
+             }
+          ]
+       },
+       "Version":{
+          "type":"object",
+          "description":"The version of the set, used in change detection",
+          "examples":[
+             {
+                "major":1,
+                "minor":0,
+                "patch":0
+             }
+          ],
+          "additionalProperties":false,
+          "properties":{
+             "major":{
+                "type":"integer",
+                "description":"The major version of the list. Must be incremented when smart contract are removed from the list or smart contract addresses are changed.",
+                "minimum":0,
+                "examples":[
                    1,
                    2
-               ]
-           },
-           "minor":{
-               "type":"integer",
-               "description":"The minor version of the list. Must be incremented when smart contracts are added to the set.",
-               "minimum":0,
-               "examples":[
+                ]
+             },
+             "minor":{
+                "type":"integer",
+                "description":"The minor version of the list. Must be incremented when smart contracts are added to the set.",
+                "minimum":0,
+                "examples":[
                    0,
                    1
-               ]
-           },
-           "patch":{
-               "type":"integer",
-               "description":"The patch version of the list. Must be incremented for any changes to the list.",
-               "minimum":0,
-               "examples":[
+                ]
+             },
+             "patch":{
+                "type":"integer",
+                "description":"The patch version of the list. Must be incremented for any changes to the list.",
+                "minimum":0,
+                "examples":[
                    0,
                    1
-               ]
-           }
-       },
-       "required":[
-           "major",
-           "minor",
-           "patch"
-       ]
-   }
-}
-}
+                ]
+             }
+          },
+          "required":[
+             "major",
+             "minor",
+             "patch"
+          ]
+       }
+    }
+ }

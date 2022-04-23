@@ -1,8 +1,8 @@
 {
-  "id": "set-smartcontract-empty",
-  "name": "Empty Smart Contract Set",
-  "object": "set.smartcontract",
-  "timestamp": "2020-01-01T00:00:00+00:00",
+  "id": "set-meta-empty",
+  "name": "Empty Meta Set",
+  "object": "set.meta",
+  "createdAt": "2020-01-01T00:00:00+00:00",
   "version": {
     "major": 0,
     "minor": 1,
@@ -11,7 +11,7 @@
   "keywords": [],
   "tags": {},
   "description": "",
-  "contentUri": "",
+  "contentUri": "ipfs:hash",
   "entities": [],
   "conditions": [],
   "rules": []

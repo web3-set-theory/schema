@@ -17,7 +17,6 @@ describe('schema', () => {
 
   function checkSchema(schema: any, valid: boolean): void {
     const isValid = validator(schema);
-    console.log(validator.errors)
     // expect(validator.errors).toMatchSnapshot();
     expect(isValid).toEqual(valid);
   }
